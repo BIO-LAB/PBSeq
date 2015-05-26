@@ -1,6 +1,7 @@
 #README for PBSeq#
 **Li Zhang (leo.zhang@nuaa.edu.cn)**
-Last Modified: June.1. 2015
+
+Last Modified: Mar.25. 2015
 ##Introduction#
 PBSeq is a software for estimating gene and isoform expression levels from RNA-seq data. The PBSeq package provides an user-friendly interface and supports threads for parallel computation.
 ##Installation#
@@ -20,13 +21,12 @@ Requirements:
 
 Now, create index and align:
 
-	'
-		$ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
-	'
 	
-	'
-		$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
-	'
+	$ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
+	
+	
+	$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
+	
 
 Notice:
 
@@ -98,9 +98,9 @@ If you choose the '-l/--log', the additional four output files, which includes g
 Description of output files:
 
 * ***gene/isoform.mean:*** these files contain the gene or isoforme expression. The first column is name of gene of isoform and the remaining columns are gene or isoform expression for each alignment files.
-* ***gene/isoform.standard.deviation: ***  these files contains the standard deviation of gene or isoform expression. The first column is name of gene of isoform and the remaining columns are the standard deviation of gene or isoform expression for each alignment files.
-* ***gene/isoform.mean.log: *** same as gene/isoform.mean files.
-* ***gene/isoform.standard.deviation.log: *** same as gene/isoform.standard.deviation files.
+* ***gene/isoform.standard.deviation:*** these files contains the standard deviation of gene or isoform expression. The first column is name of gene of isoform and the remaining columns are the standard deviation of gene or isoform expression for each alignment files.
+* ***gene/isoform.mean.log:*** same as gene/isoform.mean files.
+* ***gene/isoform.standard.deviation.log:*** same as gene/isoform.standard.deviation files.
  
 
 #Example
@@ -134,9 +134,12 @@ When you use PBSeq, you need the above files at least. We suppose that the annot
 * Target Genes: test.Gene.Info (200 genes)
 When you use PBSeq, you need the above files at least. We suppose that the annotation file and the reference sequence file both are downloaded from UCSC website.
 	
+
 	$ bowtie-build -f Homo_sapiens.GRCH37.67.chr1.fasta Ensembl.chr1.ref_transcript
 	
+
 	$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 Ensembl.chr1.ref_transcript raw_data.fasta ReadAligment.output
+
 
 	$pyhton ./PBSeq/preprocessAnnotation.py -t Ensembl -a Homo_sapiens.GRCH37.67.chr1.gtf -s Homo_sapiens.GRCH37.67.chr1.fasta -o Ensembl.chr1
 	
