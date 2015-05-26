@@ -7,7 +7,9 @@ PBSeq is a software for estimating gene and isoform expression levels from RNA-s
 ##Installation#
 To compile PBSeq, simply run in the PBSeq folder.
 
-	$ bash setup.sh
+`
+$ bash setup.sh
+`
 
 Requirements:
 
@@ -28,9 +30,6 @@ $ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
 `
 $ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
 `
-	
-	
-	
 
 Notice:
 
@@ -46,22 +45,17 @@ PBSeq need to pre-process the annotation file and the corresponding reference se
 `
 $ python ./PBSeq/preprocessAnnotation.py -- Type ensGene --AnnotationFile ensGene.txt --SequenceFile ensGene.ref_transcript.fasta --OutputName ensGene
 `
-	
-
 Options:
-
 * -t/--Type: The type of annotation corresponds the transcript reference sequence. eg. refGene.fa-> refGene and xxx.cdna.all.fa -> Ensembl.
 * -a/--AnnotationFile: the annotation includes the gene and isoform information corresponding the transcript reference sequence.
 * -s/--SequenceFile: the corresponding transcript reference sequences.
 * -o/--OutputName: The 'OutputName' is the header name of annotation files, eg: ensGene.Gene.Info. This file includes the names of gene and isoforms.
 
 Notice:
-
 * Currently, PBSeq supports four types of annotations, which are ensGene, refGene, knownGene and Ensembl.
 * For the types of refGene, ensGene and knownGene, the reference sequences and annotation files(not gtf) are downloaded from UCSC website.
 * For the type of Ensembl, the annotation files is xxx.gtf.
  
-
 ###Step 3. Pre-processing Alignment Files
 
 Now PBSeq need to pre-process the alignment files for the following steps, which include pre-computing the probabilities for each alignment files, calculating the gene bias and extracting the count data of each genes.
