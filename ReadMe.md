@@ -1,7 +1,7 @@
 #README for PBSeq#
 **Li Zhang (leo.zhang@nuaa.edu.cn)**
 Last Modified: June.1. 2015
-##Introduction
+##Introduction#
 PBSeq is a software for estimating gene and isoform expression levels from RNA-seq data. The PBSeq package provides an user-friendly interface and supports threads for parallel computation.
 ##Installation#
 To compile PBSeq, simply run in the PBSeq folder.
@@ -13,7 +13,7 @@ Requirements:
 * PBSeq software uses Python (v.2.7) to pre-process the RNA-seq data and C language to calculate the gene and isoform expression levels.
 * In PBSeq, the Python codes use two special modules, NumPy and PP (parallel python).
 *PBSeq uses Bowtie to align sequencing reads to transcriptreference sequences, so you must have Bowtie installed.
-##Usage
+##Usage#
 
 ###Step 1. Aligning Sequencing Reads
 
