@@ -21,11 +21,15 @@ Requirements:
 
 Now, create index and align:
 
+`
+$ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
+`
+    
+`
+$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
+`
 	
-	$ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
 	
-	
-	$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
 	
 
 Notice:
@@ -39,7 +43,10 @@ Notice:
 
 PBSeq need to pre-process the annotation file and the corresponding reference sequences for the following steps.
 
-	$ python ./PBSeq/preprocessAnnotation.py -- Type ensGene --AnnotationFile ensGene.txt --SequenceFile ensGene.ref_transcript.fasta --OutputName ensGene
+`
+$ python ./PBSeq/preprocessAnnotation.py -- Type ensGene --AnnotationFile ensGene.txt --SequenceFile ensGene.ref_transcript.fasta --OutputName ensGene
+`
+	
 
 Options:
 
@@ -59,11 +66,15 @@ Notice:
 
 Now PBSeq need to pre-process the alignment files for the following steps, which include pre-computing the probabilities for each alignment files, calculating the gene bias and extracting the count data of each genes.
 
-	$ python ./PBSeq/preprocessAlignment.py --Type ensGene --AligmentFiles align_reads1.output --Annotation ensGene
+`
+$ python ./PBSeq/preprocessAlignment.py --Type ensGene --AligmentFiles align_reads1.output --Annotation ensGene
+`
 
 or
 
-	$ python ./PBSeq/preprocessAlignment.py --Type ensGene--AligmentFiles align_reads1.output --Annotation ensGene --InputGene target.GeneName
+`
+$ python ./PBSeq/preprocessAlignment.py --Type ensGene--AligmentFiles align_reads1.output --Annotation ensGene --InputGene target.GeneName
+`
 
 Options:
 
@@ -77,11 +88,15 @@ Options:
 
 Now PBSeq starts calculating expression values.
 
-	$ python ./PBSeq/calculateExpression.py --Annotation ensGene --log
+`
+$ python ./PBSeq/calculateExpression.py --Annotation ensGene --log
+`
 
 or
 
-	$ python ./PBSeq/calculateExpression.py --Annotation ensGene --InputGene target.GeneName --log
+`
+$ python ./PBSeq/calculateExpression.py --Annotation ensGene --InputGene target.GeneName --log
+`
 
 Options:
 
@@ -114,17 +129,25 @@ Here, we give two simple examples of PBSeq.
 * Sequencing reads: raw_data.fasta
 When you use PBSeq, you need the above files at least. We suppose that the annotation file and the reference sequence file both are downloaded from UCSC website.
 
-	$ bowtie-build -f refGene.chr1.fasta refGene.chr1.ref_transcript
+`
+$ bowtie-build -f refGene.chr1.fasta refGene.chr1.ref_transcript
+`
 
-	$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 refGene.ref_transcript raw_data.fasta ReadAligment.output
+`
+$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 refGene.ref_transcript raw_data.fasta ReadAligment.output
+`
 
-	$ python ./PBSeq/preprocessAnnotation.py -t refGene -a refGene.chr1.txt -s refGene.chr1.fasta -o refGene.chr1
+`
+$ python ./PBSeq/preprocessAnnotation.py -t refGene -a refGene.chr1.txt -s refGene.chr1.fasta -o refGene.chr1
+`
 
-	$ python ./PBSeq/preprocessAlignment.py -t refGene -a refGene.chr1 -d ReadAligment.output
+`
+$ python ./PBSeq/preprocessAlignment.py -t refGene -a refGene.chr1 -d ReadAligment.output
+`
 
-	$ python ./PBSeq/calculateExpression.py -a refGene.chr1 --log
-
- 
+`
+$ python ./PBSeq/calculateExpression.py -a refGene.chr1 --log
+`
 
 ##Example 2:
 
@@ -133,19 +156,28 @@ When you use PBSeq, you need the above files at least. We suppose that the annot
 * Sequencing reads: raw_data.fasta
 * Target Genes: test.Gene.Info (200 genes)
 When you use PBSeq, you need the above files at least. We suppose that the annotation file and the reference sequence file both are downloaded from UCSC website.
-	
 
-	$ bowtie-build -f Homo_sapiens.GRCH37.67.chr1.fasta Ensembl.chr1.ref_transcript
-	
+`
+$bowtie-build -f Homo_sapiens.GRCH37.67.chr1.fasta Ensembl.chr1.ref_transcript
+`
 
-	$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 Ensembl.chr1.ref_transcript raw_data.fasta ReadAligment.output
+`
+$bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 Ensembl.chr1.ref_transcript raw_data.fasta ReadAligment.output
+`
+
+`
+$pyhton ./PBSeq/preprocessAnnotation.py -t Ensembl -a Homo_sapiens.GRCH37.67.chr1.gtf -s Homo_sapiens.GRCH37.67.chr1.fasta -o Ensembl.chr1
+`
+
+`	
+$python ./PBSeq/preprocessAlignment.py -t Ensembl -a Ensembl.chr1 -dReadAligment.output -i test.Gene.Info
+`
+
+`	
+$python ./PBSeq/calculateExpression.py -a Ensembl.chr1 --log -i test.Gene.Info
+`
 
 
-	$pyhton ./PBSeq/preprocessAnnotation.py -t Ensembl -a Homo_sapiens.GRCH37.67.chr1.gtf -s Homo_sapiens.GRCH37.67.chr1.fasta -o Ensembl.chr1
-	
-	$ python ./PBSeq/preprocessAlignment.py -t Ensembl -a Ensembl.chr1 -dReadAligment.output -i test.Gene.Info
-	
-	$ python ./PBSeq/calculateExpression.py -a Ensembl.chr1 --log -i test.Gene.Info
 
 #Differential Expression Analysis
 
@@ -161,16 +193,25 @@ Suppose we have a RNA-seq dataset, which includes two condition. Each codition c
 
 After using PBSeq to calculate genes/isoforms expression (choose '-l/--log' in step4), you can use PPLR to detect the differentially expressed genes/isoforms in R.
 
+`
 	library(puma)
-	
-	e<-read.table('gene.mean.log')[ , 2:7]
-	
-	se<-read.table('gene.standard.deviation.log)[ , 2:7]
-	
-	r<-bcomb(e, se , replicates=c(1,1,1,2,2,2), method='em')
-	
-	p<-pplr(r, 1, 2, sorted=FALSE)
+`
 
+`
+	e<-read.table('gene.mean.log')[ , 2:7]
+`
+
+`
+	se<-read.table('gene.standard.deviation.log)[ , 2:7]
+`
+
+`
+	r<-bcomb(e, se , replicates=c(1,1,1,2,2,2), method='em')
+`
+
+`
+	p<-pplr(r, 1, 2, sorted=FALSE)
+`
 
 The ninth column of matrix p is the probability of positive log-ration between two specified conditions in the input data.
 
