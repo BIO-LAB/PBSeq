@@ -14,8 +14,8 @@ $ bash setup.sh
 Requirements:
 
 * PBSeq software uses Python (v.2.7) to pre-process the RNA-seq data and C language to calculate the gene and isoform expression levels.
-* In PBSeq, the Python codes use two special modules, NumPy and PP (parallel python).
-*PBSeq uses Bowtie to align sequencing reads to transcriptreference sequences, so you must have Bowtie installed.
+* In PBSeq, the Python codes use two special modules, [NumPy](http://www.numpy.org/) and [PP](http://www.parallelpython.com/) (parallel python).
+* PBSeq uses Bowtie to align sequencing reads to transcriptreference sequences, so you must have [Bowtie](http://bowtie-bio.sourceforge.net/index.shtml) installed.
 
 ## Usage#
 
@@ -30,12 +30,15 @@ $ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
 `
 $ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
 `
+	
+	
+	
 
 Notice:
 
-* PBSeq need use the transcript reference sequences, which can be downloaded from UCSC and Ensembl websites. eg: ensGene.fasta, refGene.fasta, knownGene.fasta from UCSC website and xxx.cdna.all.fa from Ensembl website.
+* PBSeq need use the transcript reference sequences, which can be downloaded from [UCSC](http://genome.ucsc.edu/cgi-bin/hgTables?command=start) and [Ensembl](http://asia.ensembl.org/index.html) websites. eg: ensGene.fasta, refGene.fasta, knownGene.fasta from [UCSC](http://genome.ucsc.edu/cgi-bin/hgTables?command=start) website and xxx.cdna.all.fa from [Ensembl](http://asia.ensembl.org/index.html) website.
 * In Bowtie, '--suppress 2,6,7,8' must be set for the downstream analysis of PBSeq.
-* If you want to get more usage information for Bowtie, please click here to visit the Bowtie website.
+* If you want to get more usage information for Bowtie, please click [here](http://bowtie-bio.sourceforge.net/index.shtml) to visit the Bowtie website.
  
 
 ###Step 2. Pre-processing Annotation Inforamtion
@@ -45,17 +48,22 @@ PBSeq need to pre-process the annotation file and the corresponding reference se
 `
 $ python ./PBSeq/preprocessAnnotation.py -- Type ensGene --AnnotationFile ensGene.txt --SequenceFile ensGene.ref_transcript.fasta --OutputName ensGene
 `
+	
+
 Options:
+
 * -t/--Type: The type of annotation corresponds the transcript reference sequence. eg. refGene.fa-> refGene and xxx.cdna.all.fa -> Ensembl.
 * -a/--AnnotationFile: the annotation includes the gene and isoform information corresponding the transcript reference sequence.
 * -s/--SequenceFile: the corresponding transcript reference sequences.
 * -o/--OutputName: The 'OutputName' is the header name of annotation files, eg: ensGene.Gene.Info. This file includes the names of gene and isoforms.
 
 Notice:
+
 * Currently, PBSeq supports four types of annotations, which are ensGene, refGene, knownGene and Ensembl.
 * For the types of refGene, ensGene and knownGene, the reference sequences and annotation files(not gtf) are downloaded from UCSC website.
 * For the type of Ensembl, the annotation files is xxx.gtf.
  
+
 ###Step 3. Pre-processing Alignment Files
 
 Now PBSeq need to pre-process the alignment files for the following steps, which include pre-computing the probabilities for each alignment files, calculating the gene bias and extracting the count data of each genes.
@@ -177,7 +185,7 @@ $python ./PBSeq/calculateExpression.py -a Ensembl.chr1 --log -i test.Gene.Info
 
 Popular differentail expression analysis tools such as DESeq and edgeR do not consider the variance of gene/isoform expression and can not detect the differentially expressed isoforms.
 
-PPLR, an microarray-based tool, can take variance into considerataion and can detect the differentailly expressed genes/isoforms. Now PPLR have been integrated into the PUMA package. For more information about PPLR and PUMA, please visit the PUMA website in Bioconductor.
+PPLR, an microarray-based tool, can take variance into considerataion and can detect the differentailly expressed genes/isoforms. Now PPLR have been integrated into the PUMA package. For more information about PPLR and PUMA, please visit the [PUMA website](http://bioconductor.org/packages/release/bioc/html/puma.html) in Bioconductor.
 
 Before using PPLR method , you must have R and PUMA package installed.
 
