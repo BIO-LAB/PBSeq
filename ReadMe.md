@@ -13,15 +13,20 @@ Requirements:
 * PBSeq software uses Python (v.2.7) to pre-process the RNA-seq data and C language to calculate the gene and isoform expression levels.
 * In PBSeq, the Python codes use two special modules, NumPy and PP (parallel python).
 *PBSeq uses Bowtie to align sequencing reads to transcriptreference sequences, so you must have Bowtie installed.
-##Usage#
 
-###Step 1. Aligning Sequencing Reads
+## Usage#
+
+### Step 1. Aligning Sequencing Reads
 
 Now, create index and align:
 
-	$ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
-
-	$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
+	'
+		$ bowtie-build -f ensGene.fasta ensGene.ref_transcript.index
+	'
+	
+	'
+		$ bowtie -t -f -p 4 -a -m 100 --suppress 2,6,7,8 ensGene.ref_transcript.index raw_data.fasta align_reads.output
+	'
 
 Notice:
 
