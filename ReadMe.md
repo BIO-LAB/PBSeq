@@ -185,37 +185,9 @@ $python ./PBSeq/calculateExpression.py -a Ensembl.chr1 --log -i test.Gene.Info
 
 Popular differentail expression analysis tools such as DESeq and edgeR do not consider the variance of gene/isoform expression and can not detect the differentially expressed isoforms.
 
-PPLR, an microarray-based tool, can take variance into considerataion and can detect the differentailly expressed genes/isoforms. Now PPLR have been integrated into the PUMA package. For more information about PPLR and PUMA, please visit the [PUMA website](http://bioconductor.org/packages/release/bioc/html/puma.html) in Bioconductor.
+We have proposed a BDSeq method to detect differentially expressed genes/isoforms. BDSeq method not only uses the gene/isoform expression level, but also considers the measurement uncertainty of expression level. 
 
-Before using PPLR method , you must have R and PUMA package installed.
-
-##A simple example:
-
-Suppose we have a RNA-seq dataset, which includes two condition. Each codition contains three alignment files.
-
-After using PBSeq to calculate genes/isoforms expression (choose '-l/--log' in step4), you can use PPLR to detect the differentially expressed genes/isoforms in R.
-
-`
-	library(puma)
-`
-
-`
-	e<-read.table('gene.mean.log')[ , 2:7]
-`
-
-`
-	se<-read.table('gene.standard.deviation.log)[ , 2:7]
-`
-
-`
-	r<-bcomb(e, se , replicates=c(1,1,1,2,2,2), method='em')
-`
-
-`
-	p<-pplr(r, 1, 2, sorted=FALSE)
-`
-
-The ninth column of matrix p is the probability of positive log-ration between two specified conditions in the input data.
+PBSeq method is able to obtain the expression level and corresponding meausrement uncertainty, then use BDSeq method for differnetianly expression analysis.
 
  
 
