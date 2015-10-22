@@ -1,7 +1,6 @@
 #README for PBSeq#
 **Li Zhang (leo.zhang@nuaa.edu.cn)**
 
-Last Modified: Mar.25. 2015
 ##Introduction#
 PBSeq is a software for estimating gene and isoform expression levels from RNA-seq data. The PBSeq package provides an user-friendly interface and supports threads for parallel computation.
 ##Installation#
